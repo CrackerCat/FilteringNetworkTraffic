@@ -302,7 +302,8 @@ class FilterDataProvider: NEFilterDataProvider {
         nEvent.pid = flow.pid
         nEvent.uid = Int32(flow.uid)
         nEvent.gid = Int32(flow.gid)
-        nEvent.processpath = readBytes.hexEncodedString()
+        nEvent.processpath = flow.processPath!
+        nEvent.packets = readBytes.hexEncodedString()
         
         
         let encoder = JSONEncoder()
