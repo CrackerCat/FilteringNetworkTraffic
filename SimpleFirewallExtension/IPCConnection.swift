@@ -18,7 +18,7 @@ import Network
 /// Provider --> App IPC
 @objc protocol AppCommunication {
 
-    func promptUser(aboutFlow flowInfo: [String: String], responseHandler: @escaping (Bool) -> Void)
+    func sendEventToApp(newEvent event: String)
 }
 
 enum FlowInfoKey: String {
@@ -100,28 +100,21 @@ class IPCConnection: NSObject {
         providerProxy.register(completionHandler)
     }
 
-    /**
-        This method is called by the provider to cause the app (if it is registered) to display a prompt to the user asking
-        for a decision about a connection.
-    */
-    func promptUser(aboutFlow flowInfo: [String: String], responseHandler:@escaping (Bool) -> Void) -> Bool {
-
+    func sendEventToApp(newEvent event: String) {
         guard let connection = currentConnection else {
-            os_log("Cannot prompt user because the app isn't registered")
-            return false
+            // no app client connected, do not attempt to send event.
+            return
         }
 
-        guard let appProxy = connection.remoteObjectProxyWithErrorHandler({ promptError in
-            os_log("Failed to prompt the user: %@", promptError.localizedDescription)
+        guard let appProxy = connection.remoteObjectProxyWithErrorHandler({ sendError in
+            NSLog("Failed to sent event to app %@", sendError.localizedDescription)
             self.currentConnection = nil
-            responseHandler(true)
         }) as? AppCommunication else {
-            fatalError("Failed to create a remote object proxy for the app")
+            NSLog("Failed to create a remote object proxy for the app")
+            return
         }
 
-        appProxy.promptUser(aboutFlow: flowInfo, responseHandler: responseHandler)
-
-        return true
+        appProxy.sendEventToApp(newEvent: event)
     }
 }
 

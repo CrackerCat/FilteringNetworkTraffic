@@ -40,6 +40,16 @@ class ViewController: NSViewController {
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return formatter
     }()
+    
+    // Generic function to display error in NSAlert as well as log
+    func showError(error: String) {
+        let alert = NSAlert()
+        NSLog("%@", error)
+        alert.informativeText = error
+        alert.alertStyle = .critical
+        alert.messageText = "Error"
+        alert.runModal()
+    }
 
     var status: Status = .stopped {
         didSet {
@@ -143,16 +153,13 @@ class ViewController: NSViewController {
         }
     }
 
-    func logFlow(_ flowInfo: [String: String], at date: Date, userAllowed: Bool) {
-
-        guard let localPort = flowInfo[FlowInfoKey.localPort.rawValue],
-            let remoteAddress = flowInfo[FlowInfoKey.remoteAddress.rawValue],
-            let font = NSFont.userFixedPitchFont(ofSize: 12.0) else {
+    func logFlow(_ event: String, at date: Date) {
+        guard let font = NSFont.userFixedPitchFont(ofSize: 12.0) else {
                 return
         }
 
         let dateString = dateFormatter.string(from: date)
-        let message = "\(dateString) \(userAllowed ? "ALLOW" : "DENY") \(localPort) <-- \(remoteAddress)\n"
+        let message = "\(dateString) \(event)\n"
 
         os_log("%@", message)
 
@@ -324,31 +331,8 @@ extension ViewController: AppCommunication {
 
     // MARK: AppCommunication
 
-    func promptUser(aboutFlow flowInfo: [String: String], responseHandler: @escaping (Bool) -> Void) {
-
-        guard let localPort = flowInfo[FlowInfoKey.localPort.rawValue],
-            let remoteAddress = flowInfo[FlowInfoKey.remoteAddress.rawValue],
-            let window = view.window else {
-                os_log("Got a promptUser call without valid flow info: %@", flowInfo)
-                responseHandler(true)
-                return
-        }
-
+    func sendEventToApp(newEvent event: String) {
         let connectionDate = Date()
-
-        DispatchQueue.main.async {
-            let alert = NSAlert()
-            alert.alertStyle = .informational
-            alert.messageText = "New incoming connection"
-            alert.informativeText = "A new connection on port \(localPort) has been received from \(remoteAddress)."
-            alert.addButton(withTitle: "Allow")
-            alert.addButton(withTitle: "Deny")
-
-            alert.beginSheetModal(for: window) { userResponse in
-                let userAllowed = (userResponse == .alertFirstButtonReturn)
-                self.logFlow(flowInfo, at: connectionDate, userAllowed: userAllowed)
-                responseHandler(userAllowed)
-            }
-        }
+        self.logFlow(event, at: connectionDate)
     }
 }

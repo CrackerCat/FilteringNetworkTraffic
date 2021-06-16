@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		829D1B5A2679FFAC00C0CE27 /* libbsm.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 829D1B592679FFA900C0CE27 /* libbsm.tbd */; };
+		829D1B5B2679FFC400C0CE27 /* libbsm.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 829D1B592679FFA900C0CE27 /* libbsm.tbd */; };
 		C40A5C46229DD6A500627D50 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B45DDD2273A3450050C59B /* NetworkExtension.framework */; };
 		C40A5C4B229DD6A500627D50 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40A5C4A229DD6A500627D50 /* main.swift */; };
 		C40A5C50229DD6A500627D50 /* com.example.apple-samplecode.SimpleFirewallY6R6PS3M52.SimpleFirewallExtension.systemextension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = C40A5C45229DD6A500627D50 /* com.example.apple-samplecode.SimpleFirewallY6R6PS3M52.SimpleFirewallExtension.systemextension */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -48,6 +50,7 @@
 		03411C5003411ED000000001 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6ED719E06ED6DED000000001 /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
 		6ED8E4306ED7A1A000000001 /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		829D1B592679FFA900C0CE27 /* libbsm.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbsm.tbd; path = usr/lib/libbsm.tbd; sourceTree = SDKROOT; };
 		C40A5C45229DD6A500627D50 /* com.example.apple-samplecode.SimpleFirewallY6R6PS3M52.SimpleFirewallExtension.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = "com.example.apple-samplecode.SimpleFirewallY6R6PS3M52.SimpleFirewallExtension.systemextension"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C40A5C4A229DD6A500627D50 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		C40A5C4C229DD6A500627D50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -70,6 +73,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C40A5C46229DD6A500627D50 /* NetworkExtension.framework in Frameworks */,
+				829D1B5A2679FFAC00C0CE27 /* libbsm.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +82,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4B45DDE2273A3450050C59B /* NetworkExtension.framework in Frameworks */,
+				829D1B5B2679FFC400C0CE27 /* libbsm.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +155,7 @@
 		C4B45DDC2273A3450050C59B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				829D1B592679FFA900C0CE27 /* libbsm.tbd */,
 				C4B45DDD2273A3450050C59B /* NetworkExtension.framework */,
 			);
 			name = Frameworks;
